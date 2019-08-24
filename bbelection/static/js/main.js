@@ -1,11 +1,25 @@
 document.addEventListener("DOMContentLoaded", function() {
-  const rootButton = document.querySelector(".root");
+    const rootButton = document.querySelector(".root");
+    const refresh = document.querySelector("#refresh")
 
-  rootButton.addEventListener("click", () => {
+    rootButton.addEventListener("click", () => {
     requestRoot();
-  });
+    });
 
- 
+    refresh.addEventListener('click', (event) => { 
+        const li = document.querySelectorAll('li')
+        const forms = document.querySelectorAll('form')
+
+        event.preventDefault();
+        li.forEach(l => { 
+            l.remove() 
+        })
+        forms.forEach(form => { 
+            form.remove() 
+        })
+        requestRoot(); 
+    })
+    
 });
 
 async function requestRoot() {
@@ -59,6 +73,9 @@ const handleSubmit = () => {
         )
         .then(response => {
           console.log(response.data);
+        let submitButton = form.querySelector('#submit-button')
+        submitButton.setAttribute("disabled", "True");
+
         })
         .catch(error => {
           console.log(error);
